@@ -141,7 +141,7 @@ async def delete_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # проверяем, что команду вызывает администратор
         if update.effective_user.id != ADMIN_USER_ID:
-            await update.message.reply_text('Такой команды не существует')
+            await update.message.reply_text('Неизвестная команда. Введите /help для вызова справки.')
             return
 
         # проверяем, что передан ID фото для удаления

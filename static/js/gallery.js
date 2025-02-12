@@ -28,7 +28,7 @@ async function loadPhotos() {
             const track = document.getElementById(trackId);
             if (!track) return;
 
-            // Создаем больше копий для более плавной бесконечной прокрутки
+            // больше копий для плавной бесконечной прокрутки
             const shuffledPhotos = shuffleArray([...photos]);
             const repeatedPhotos = [
                 ...shuffledPhotos,
@@ -47,7 +47,7 @@ async function loadPhotos() {
                 </div>
             `).join('');
 
-            // Привязываем обработчик клика через addEventListener
+            // обработчик клика через addEventListener
             track.querySelectorAll('.gallery-item img').forEach(img => {
                 img.addEventListener('click', function() {
                     openModal(this.src, this.dataset.description);
@@ -55,7 +55,7 @@ async function loadPhotos() {
             });
 
 
-            // Устанавливаем начальную позицию в середину
+            // устанавливаем начальную позицию в середину
             const itemWidth = track.querySelector('.gallery-item').offsetWidth;
             galleries[trackId].position = itemWidth * shuffledPhotos.length;
             track.style.transform = `translateX(${-galleries[trackId].position}px)`;
@@ -96,7 +96,6 @@ function startAutoScroll(trackId) {
         gallery.position += gallery.speed;
         track.style.transform = `translateX(${-gallery.position}px)`;
 
-        // Проверяем необходимость перемотки
         const items = track.querySelectorAll('.gallery-item');
         const itemWidth = items[0].offsetWidth;
         const totalWidth = itemWidth * items.length;
@@ -141,7 +140,7 @@ function scrollGallery(trackId, direction) {
     const scrollAmount = 300;
     gallery.position += direction === 'left' ? -scrollAmount : scrollAmount;
 
-    // Проверяем границы при ручной прокрутке
+
     const items = track.querySelectorAll('.gallery-item');
     const itemWidth = items[0].offsetWidth;
     const totalWidth = itemWidth * items.length;
