@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотогалерея</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/favicon-32x32.png">
+    <link rel="shortcut icon" type="image/png" href="/static/favicon-32x32.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1>Фотогалерея</h1>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery">
+            <div class="gallery-track" id="gallery-track"></div>
+        </div>
+        <div class="gallery-navigation">
+            <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('gallery-track', 'left')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                </svg>
+            </button>
+            <button class="gallery-nav-btn gallery-nav-right" onclick="scrollGallery('gallery-track', 'right')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-reverse">
+            <div class="gallery-reverse-track" id="gallery-reverse-track"></div>
+        </div>
+        <div class="gallery-navigation">
+            <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('gallery-reverse-track', 'left')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                </svg>
+            </button>
+            <button class="gallery-nav-btn gallery-nav-right" onclick="scrollGallery('gallery-reverse-track', 'right')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-third">
+            <div class="gallery-third-track" id="gallery-third-track"></div>
+        </div>
+        <div class="gallery-navigation">
+            <button class="gallery-nav-btn gallery-nav-left" onclick="scrollGallery('gallery-third-track', 'left')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                </svg>
+            </button>
+            <button class="gallery-nav-btn gallery-nav-right" onclick="scrollGallery('gallery-third-track', 'right')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h2>Добавьте свое фото в галерею:
+            <a href="https://t.me/project_zombire_bot" class="telegram-link">@project_zombire_bot</a>
+        </h2>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-container">
+            <button class="close-button" onclick="closeModal()">×</button>
+            <img class="modal-content" id="modalImage">
+            <div class="modal-description" id="modalDescription"></div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="/static/js/gallery.js"></script>
+</body>
+</html>
