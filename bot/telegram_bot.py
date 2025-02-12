@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 ADMIN_USER_ID = int(os.getenv('ADMIN_USER_ID'))
 
-# Добавляем словарь для хранения временных данных о фото
+# словарь для хранения временных данных о фото
 temp_photos = {}
 
 
@@ -44,17 +44,17 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         photo = update.message.photo[-1]
         file = await photo.get_file()
 
-        # Сохраняем фото
+        # сохраняем фото
         file_path = f'static/photos/{photo.file_id}.jpg'
         await file.download_to_drive(file_path)
 
-        # Сохраняем временные данные о фото
+        # сохраняем временные данные о фото
         temp_photos[update.effective_user.id] = {
             'file_path': file_path,
             'telegram_user_id': update.effective_user.id
         }
 
-        # Запрашиваем описание фото
+        # запрашиваем описание фото
         await update.message.reply_text('Пожалуйста, добавьте описание к фотографии (так же можете указать авторство):')
         return 'WAITING_DESCRIPTION'
     except Exception as e:
@@ -70,11 +70,11 @@ async def handle_description(update: Update, context: ContextTypes.DEFAULT_TYPE)
             await update.message.reply_text('Сначала отправьте фотографию.')
             return ConversationHandler.END
 
-        # Получаем временные данные о фото
+        # получаем временные данные о фото
         photo_data = temp_photos[user_id]
         description = update.message.text
 
-        # Создаем запись в БД
+        # создаем запись в БД
         db_photo = Photo.create(
             file_path=photo_data['file_path'],
             telegram_user_id=photo_data['telegram_user_id'],
@@ -82,10 +82,10 @@ async def handle_description(update: Update, context: ContextTypes.DEFAULT_TYPE)
             status='pending'
         )
 
-        # Очищаем временные данные
+        # очищаем временные данные
         del temp_photos[user_id]
 
-        # Отправляем уведомление админу
+        # отправляем уведомление админу
         keyboard = [
             [
                 InlineKeyboardButton('Одобрить', callback_data=f'approve_{db_photo.id}'),
@@ -136,15 +136,15 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.answer('Произошла ошибка при обработке запроса.')
 
 
-# Удаление фото из галереи
+# удаление фото из галереи
 async def delete_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        # Проверяем, что команду вызывает администратор
+        # проверяем, что команду вызывает администратор
         if update.effective_user.id != ADMIN_USER_ID:
-            await update.message.reply_text('У вас нет прав для этой команды')
+            await update.message.reply_text('Такой команды не существует')
             return
 
-        # Проверяем, что передан ID фото
+        # проверяем, что передан ID фото для удаления
         if not context.args or len(context.args) != 1:
             await update.message.reply_text('Используйте: /delete_photo <id>')
             return
@@ -153,11 +153,11 @@ async def delete_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         photo = Photo.get_by_id(photo_id)
 
         if photo:
-            # Удаляем файл
+            # удаляем файл
             if os.path.exists(photo.file_path):
                 os.remove(photo.file_path)
 
-            # Удаляем из базы данных
+            # удаляем из базы данных
             photo.delete()
 
             await update.message.reply_text(f'Фото с ID {photo_id} удалено')
@@ -172,13 +172,12 @@ async def delete_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Проверяем, что команду вызывает администратор
     await update.message.reply_text('Неизвестная команда. Введите /help для вызова справки.')
 
 
-# Подсказка для админа
+# подсказка для админа
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Проверяем, является ли пользователь администратором
+    # проверяем, является ли пользователь админом
     if update.effective_user.id == ADMIN_USER_ID:
         help_text = """
     Доступные команды для администратора:
