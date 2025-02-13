@@ -1,4 +1,4 @@
-# Project Zombire Telegram Bot
+# Photo gallery & Telegram Bot
 
 ## Описание
 Telegram бот для загрузки и модерации фотографий с последующим размещением на сайте.
