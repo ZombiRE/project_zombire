@@ -208,7 +208,7 @@ h1 {
 
 .modal-content {
     max-width: 100%;
-    max-height: 80vh;  /* высота изображения в модальном окне*/
+    max-height: 80vh;  /* Высота изображения в модальном окне */
     object-fit: contain;
     animation: zoom-in 0.3s ease;
     border-radius: 8px;
@@ -225,7 +225,7 @@ h1 {
     padding: 10px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
-    max-height: 20vh;  /* максимальная высота комментария */
+    max-height: 20vh;  /* Максимальная высота комментария */
     overflow: auto;
 }
 
