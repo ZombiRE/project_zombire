@@ -28,7 +28,7 @@ async function loadPhotos() {
             const track = document.getElementById(trackId);
             if (!track) return;
 
-            // больше копий для плавной бесконечной прокрутки
+            // Больше копий для плавной бесконечной прокрутки по горизонтали
             const shuffledPhotos = shuffleArray([...photos]);
             const repeatedPhotos = [
                 ...shuffledPhotos,
@@ -47,7 +47,7 @@ async function loadPhotos() {
                 </div>
             `).join('');
 
-            // обработчик клика через addEventListener
+            // Обработчик клика через "addEventListener"
             track.querySelectorAll('.gallery-item img').forEach(img => {
                 img.addEventListener('click', function() {
                     openModal(this.src, this.dataset.description);
@@ -55,7 +55,7 @@ async function loadPhotos() {
             });
 
 
-            // устанавливаем начальную позицию в середину
+            // Устанавливаем начальную позицию в середину
             const itemWidth = track.querySelector('.gallery-item').offsetWidth;
             galleries[trackId].position = itemWidth * shuffledPhotos.length;
             track.style.transform = `translateX(${-galleries[trackId].position}px)`;
